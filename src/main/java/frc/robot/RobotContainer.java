@@ -7,11 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.SetTankDrive;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.DriveArcade;
+
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
@@ -21,17 +20,21 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain = new DriveTrain();
+  public static Subsystem m_drivetrain;
+// Joysticks
+  public static Joystick driverController_1 = new Joystick(Constants.DRIVER_CONTROLLER_1);
+  public static Joystick driverController_2 = new Joystick(Constants.DRIVER_CONTROLLER_2);
+  public static Joystick armController_1 = new Joystick(Constants.ARM_CONTROLLER_1);
 
-  private final static Joystick leftJoystick = new Joystick(Constants.leftJoystickId);
-  private final static Joystick rightJoystick = new Joystick(Constants.rightJoystickId);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    initializeSubsystems(); 
+
+  // Make the arcade drive the default
+    m_drivetrain.setDefaultCommand(new DriveArcade());
   }
 
   /**
@@ -42,16 +45,21 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {}
 
-  private void initializeSubsystems(){
-    m_driveTrain.setDefaultCommand(new SetTankDrive(m_driveTrain, leftJoystick::getY, rightJoystick:: getY));
-  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public WaitCommand getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new WaitCommand(0);
   }
+
+public Commands getDriveDistance() {
+    return null;
+}
+
+public WaitCommand getAutonoumousDrive() {
+  return null;
+}
 }
