@@ -4,19 +4,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ElbowSubsystem extends SubsystemBase {
-  private WPI_TalonSRX elbowMotor;
+    elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
 
   public ElbowSubsystem() {
-    elbowMotor = new WPI_TalonSRX(Constants.ELBOW_MOTOR_ID);
+    elbowMotor = new CANSparkMax(1, ControlMode.armController_1);
   }
 
-  public void foldDownElbow() {
+  public void foldupElbow() {
     elbowMotor.set(-0.75);
   }
 
