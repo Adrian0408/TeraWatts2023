@@ -10,8 +10,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElbowSubsystem extends SubsystemBase {
-   CANSparkMax elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
-   CANSparkMax armMotor = new CANSparkMax(2, MotorType.kBrushless);
+  static CANSparkMax elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
+   static CANSparkMax armMotor = new CANSparkMax(2, MotorType.kBrushless);
    
   public ElbowSubsystem() {
     elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
@@ -19,11 +19,12 @@ public class ElbowSubsystem extends SubsystemBase {
     elbowMotor.setInverted(true);
     elbowMotor.follow(armMotor);
     
+    
   }
 
   public void foldupElbow() {
-    elbowMotor.set(-0.75);
-    armMotor.set(.75);
+    elbowMotor.set(-0.1);
+    armMotor.set(.1);
   }
 
   public void stopElbow() {
@@ -32,5 +33,13 @@ public class ElbowSubsystem extends SubsystemBase {
   }
 
   public static void start() {
+  }
+
+public static void setPercentOutput(double y) {
+  armMotor.set(y);
+}
+@Override
+  public void periodic() {
+
   }
 }
