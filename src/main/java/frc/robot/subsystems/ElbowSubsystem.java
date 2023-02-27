@@ -4,25 +4,31 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class ElbowSubsystem extends SubsystemBase {
-    elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
-
+   CANSparkMax elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
+   CANSparkMax armMotor = new CANSparkMax(2, MotorType.kBrushless);
+   
   public ElbowSubsystem() {
-    elbowMotor = new CANSparkMax(1, ControlMode.armController_1);
+    elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
+    armMotor = new CANSparkMax(2, MotorType.kBrushless);
+    elbowMotor.setInverted(true);
+    elbowMotor.follow(armMotor);
+    
   }
 
   public void foldupElbow() {
     elbowMotor.set(-0.75);
+    armMotor.set(.75);
   }
 
   public void stopElbow() {
     elbowMotor.set(0);
+    armMotor.set(0);
   }
 
   public static void start() {
