@@ -7,12 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.SetTankDrive;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.RunArmJoystick;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ElbowSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,17 +23,27 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain = new DriveTrain();
-
-  private final static Joystick leftJoystick = new Joystick(Constants.leftJoystickId);
-  private final static Joystick rightJoystick = new Joystick(Constants.rightJoystickId);
-
+ private final DriveTrain m_driveTrain = new DriveTrain();
+private final ElbowSubsystem m_ElbowSubsystem = new ElbowSubsystem();
+// Joysticks
+  public static Joystick driverController_1 = new Joystick(Constants.DRIVER_CONTROLLER_1);
+  public static Joystick driverController_2 = new Joystick(Constants.DRIVER_CONTROLLER_2);
+  public static Joystick armController_1 = new Joystick(Constants.ARM_CONTROLLER_1);
+  JoystickButton button1 = new JoystickButton(armController_1, 3);
+  JoystickButton button2 = new JoystickButton(armController_1, 2);
+  JoystickButton button3 = new JoystickButton(armController_1, 4);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
-    initializeSubsystems(); 
+    configureButtonBindings(
+      
+    );}
+
+   
+  // Make the arcade drive the default
+  public void initializeSubsystems(){
+  m_driveTrain.setDefaultCommand(new ArcadeDrive( m_driveTrain, driverController_1.getY(), driverController_2.getX()));
+  m_ElbowSubsystem.setDefaultCommand(new RunArmJoystick(m_ElbowSubsystem, armController_1.getY()));
   }
 
   /**
@@ -40,18 +52,34 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings(
+  ) {
+    button1.onTrue(ElbowSubsystem());
+    
 
-  private void initializeSubsystems(){
-    m_driveTrain.setDefaultCommand(new SetTankDrive(m_driveTrain, leftJoystick::getY, rightJoystick:: getY));
+    
   }
+
+  private Command ElbowSubsystem() {
+    return null;
+  }
+
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public WaitCommand getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new WaitCommand(0);
   }
+
+public Commands getDriveDistance() {
+    return null;
+}
+
+public WaitCommand getAutonoumousDrive() {
+  return null;
+}
 }
