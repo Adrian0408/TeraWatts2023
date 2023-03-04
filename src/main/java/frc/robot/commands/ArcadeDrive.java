@@ -13,45 +13,33 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private DriveTrain m_driveTrain;
-private DoubleSupplier m_leftOutput, m_rightOutput;
- 
-
-  public ArcadeDrive() {
-}
-
+private double m_leftOutput;
+double m_rightOutput;
  
 
 
- 
+
+
+
+public ArcadeDrive(DriveTrain driveTrain, Double leftOutput, Double rightOutput) {
+
+  m_driveTrain = driveTrain;
+  
   
 
-public ArcadeDrive(DriveTrain m_driveTrain2, Object object, Object object2) {
+  
+
+  // Use addRequirements() here to declare subsystem dependencies.
+  addRequirements(driveTrain);
+
 }
-
-
-
-
-
-
 
 /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public void arcadeDrive(DriveTrain driveTrain, DoubleSupplier leftOutput, DoubleSupplier rightOutput) {
-    m_driveTrain = driveTrain;
-    m_leftOutput = leftOutput;
-    m_rightOutput = rightOutput;
-    
-
-    
-
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveTrain);
-  
-  }
-
+ 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -59,7 +47,7 @@ public ArcadeDrive(DriveTrain m_driveTrain2, Object object, Object object2) {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
- m_driveTrain.setPercentOutput(m_leftOutput.getAsDouble(), m_rightOutput.getAsDouble()); }
+ m_driveTrain.setPercentOutput(m_leftOutput, m_rightOutput); }
  
  public void arcadeDrive(double throttleValue, double turnValue) {
   double leftOutput;
