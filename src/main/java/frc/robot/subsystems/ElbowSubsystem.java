@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElbowSubsystem extends SubsystemBase {
   static CANSparkMax elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
-   static CANSparkMax armMotor = new CANSparkMax(2, MotorType.kBrushless);
+  static CANSparkMax armMotor = new CANSparkMax(2, MotorType.kBrushless);
    
   public ElbowSubsystem() {
-    elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
-    armMotor = new CANSparkMax(2, MotorType.kBrushless);
+    // elbowMotor = new CANSparkMax(1, MotorType.kBrushless);
+    // armMotor = new CANSparkMax(2, MotorType.kBrushless);
     elbowMotor.setInverted(true);
     elbowMotor.follow(armMotor);
     
@@ -26,7 +26,7 @@ public class ElbowSubsystem extends SubsystemBase {
     elbowMotor.set(-0.1);
     armMotor.set(.1);
   }
-
+ 
   public void stopElbow() {
     elbowMotor.set(0);
     armMotor.set(0);

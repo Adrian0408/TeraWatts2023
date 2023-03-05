@@ -51,8 +51,8 @@ public void setPercentOutput(double leftOutput, double rightOutput) {
   motors[0].set(ControlMode.PercentOutput, leftOutput);
   motors[1].set(ControlMode.PercentOutput, rightOutput);
 }
-  double moveSpeed = -RobotContainer.driverController_1.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
-    double rotateSpeed = RobotContainer.driverController_2.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
+  double leftOutput = -RobotContainer.driverController_1.getY();
+    double rightOutput = RobotContainer.driverController_2.getX();
 
     
   @Override
