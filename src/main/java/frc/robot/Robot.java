@@ -5,15 +5,10 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveTrain;
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -25,18 +20,15 @@ public class Robot extends TimedRobot {
 
   private WaitCommand m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    new RobotContainer();
     new DriveTrain();
-
+   
 
   }
 
@@ -66,7 +58,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonoumousDrive();
+    m_autonomousCommand = null;
 
   
   }
@@ -91,24 +83,25 @@ public class Robot extends TimedRobot {
 
  
  //XboxController
- private final XboxController xbox = new XboxController(1);
-
-
- Compressor comp = new Compressor(0, PneumaticsModuleType.CTREPCM);
- DoubleSolenoid Air1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
- boolean pressureSwitch = comp.getPressureSwitchValue();
- double current = comp.getCurrent();
- 
+//  private final XboxController xbox = new XboxController(1);
+//  public static Joystick armController_1 = new Joystick(Constants.ARM_CONTROLLER_1);
+//  JoystickButton button1 = new JoystickButton(armController_1, 3);
+//  JoystickButton button2 = new JoystickButton(armController_1, 2);
+//  Compressor comp = new Compressor(10, PneumaticsModuleType.CTREPCM);
+//  DoubleSolenoid Air1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 6);
+//  boolean pressureSwitch = comp.getPressureSwitchValue();
+//  double current = comp.getCurrent();
+//  DoubleSolenoid m_Forward = Air1.set(DoubleSolenoid.Value.kForward());
  @Override
  public void teleopPeriodic() {
-  if (xbox.getLeftBumper()) {
+//  if  (button1.onTrue(m_Forward)) {
 
-    Air1.set(DoubleSolenoid.Value.kForward);
+    
 
-  } else if (xbox.getRightBumper()) {
+//   } else if (button1.onTrue(m_autonomousCommand)) {
 
-    Air1.set(DoubleSolenoid.Value.kReverse);
-  }
+//     Air1.set(DoubleSolenoid.Value.kReverse);
+//   }
 
  
 
@@ -136,7 +129,6 @@ public class Robot extends TimedRobot {
   @Override
   public void simulationPeriodic(){}
 
-  public static void diferentailDrive() {
-  }
+  
 }
 
