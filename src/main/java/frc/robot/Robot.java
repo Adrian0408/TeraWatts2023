@@ -5,7 +5,11 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveTrain;
@@ -83,27 +87,26 @@ public class Robot extends TimedRobot {
 
  
  //XboxController
-//  private final XboxController xbox = new XboxController(1);
-//  public static Joystick armController_1 = new Joystick(Constants.ARM_CONTROLLER_1);
-//  JoystickButton button1 = new JoystickButton(armController_1, 3);
-//  JoystickButton button2 = new JoystickButton(armController_1, 2);
-//  Compressor comp = new Compressor(10, PneumaticsModuleType.CTREPCM);
-//  DoubleSolenoid Air1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 6);
-//  boolean pressureSwitch = comp.getPressureSwitchValue();
-//  double current = comp.getCurrent();
-//  DoubleSolenoid m_Forward = Air1.set(DoubleSolenoid.Value.kForward());
+ //pnumatics system with compressor and double solednoids.
+ private final XboxController xbox = new XboxController(0);
+
+ Compressor comp = new Compressor(11, PneumaticsModuleType.CTREPCM);
+ DoubleSolenoid Air1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5,6);
+ boolean pressureSwitch = comp.getPressureSwitchValue();
+ double current = comp.getCurrent();
+
  @Override
  public void teleopPeriodic() {
-//  if  (button1.onTrue(m_Forward)) {
+ if  (xbox.getBButtonPressed()) {
 
-    
+    Air1.set(DoubleSolenoid.Value.kForward);
 
-//   } else if (button1.onTrue(m_autonomousCommand)) {
+  } else if (xbox.getAButtonPressed()) {
 
-//     Air1.set(DoubleSolenoid.Value.kReverse);
-//   }
+    Air1.set(DoubleSolenoid.Value.kReverse);
+  }
 
- 
+  
 
   
 

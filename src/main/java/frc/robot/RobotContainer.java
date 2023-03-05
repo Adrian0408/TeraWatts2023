@@ -54,15 +54,14 @@ private final ElbowSubsystem m_ElbowSubsystem = new ElbowSubsystem();
    */
   private void configureButtonBindings(
   ) {
-    button1.onTrue(ElbowSubsystem());
+    
     
 
     
   }
 
-  private Command ElbowSubsystem() {
-    return null;
-  }
+
+  
 
   
   /**
