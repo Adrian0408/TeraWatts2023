@@ -4,11 +4,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.DriveTrain;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -16,20 +20,22 @@ import frc.robot.subsystems.DriveTrain;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  public static Object m_drivetrain;
+  //Xbox Controller code.
+  private final XboxController xbox = new XboxController(0);
 
-  private RobotContainer m_robotContainer;
-  private DriveTrain m_driveTrain; 
+  private WaitCommand m_autonomousCommand;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    m_driveTrain = new DriveTrain(); 
+    new RobotContainer();
+    new DriveTrain();
+   
+
   }
 
   /**
@@ -58,12 +64,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = null;
 
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+  
   }
 
   /** This function is called periodically during autonomous. */
@@ -72,6 +75,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    
+  
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -81,9 +87,64 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
+ 
+ 
+ //pnumatics system with compressor and double solednoids.
+
+ Compressor comp = new
+ 
+ // we are working towards this, we sent a message to Adrian.
+ // We called a new compresor, this will release air for the robot to use. 
+ Compressor(0, PneumaticsModuleType.CTREPCM);
+
+
+
+ // We created a Doble Solenoid component and command it with releasing air and pushing in air. 
+
+
+private final DoubleSolenoid Air1 =
+new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+
+private static final int kDoubleSolenoidForward = 2;
+private static final int kDoubleSolenoidReverse = 3;
+
+ /*  This detects the air presure inside the robot and will stop the compresor from making more air.
+  * This will start the compressor when the psi presure reachs 90 psi 
+
+  
+
+   // DoubleSolenoid corresponds to a double solenoid.
+  private final DoubleSolenoid m_doubleSolenoid =
+      new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 2);
+ */
+ boolean pressureSwitch = comp.getPressureSwitchValue();
+ /* Getting the current value of the presure switch */
+ double current = comp.getCurrent();
+// This was checked and looks ok
+
+
+
+
+
+ @Override
+ public void teleopPeriodic() {
+ 
+  if  (xbox.getAButtonPressed()) {
+
+    Air1.set(DoubleSolenoid.Value.kForward);
+
+  } else if (xbox.getBButtonPressed()) {
+
+    Air1.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  
+ }
+ 
+ 
+
+  
+
 
   @Override
   public void testInit() {
@@ -101,5 +162,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically whilst in simulation. */
   @Override
-  public void simulationPeriodic() {}
+  public void simulationPeriodic(){}
+
+  
 }
+

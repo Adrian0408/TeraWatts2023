@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -29,7 +27,7 @@ private final TalonFX[] motors = {
 
 
  
-  /** Creates a new ExampleSubsyitstem                         . */
+  /** Creates a new ExampleSubsyitstem. */
   public DriveTrain() {
 for (TalonFX motor : motors) {
   motor.configFactoryDefault();
@@ -49,12 +47,11 @@ motors[3].follow(motors[1]);
   }
 
 
-public void setPercentOutput(double m_leftOutput, double rightOutput) {
-  motors[0].set(ControlMode.PercentOutput, m_leftOutput);
+public void setPercentOutput(double leftOutput, double rightOutput) {
+  motors[0].set(ControlMode.PercentOutput, leftOutput);
   motors[1].set(ControlMode.PercentOutput, rightOutput);
 }
-  double moveSpeed = -RobotContainer.driverController_1.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
-    double rotateSpeed = RobotContainer.driverController_2.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
+  
 
     
   @Override

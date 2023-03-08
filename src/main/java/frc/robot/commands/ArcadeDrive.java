@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 import java.util.function.DoubleSupplier;
 
@@ -17,6 +18,7 @@ private DoubleSupplier m_leftOutput, m_rightOutput;
  
 
   public ArcadeDrive() {
+
 }
 
  
@@ -25,7 +27,8 @@ private DoubleSupplier m_leftOutput, m_rightOutput;
  
   
 
-public ArcadeDrive(DriveTrain m_driveTrain2, Object object, Object object2) {
+public ArcadeDrive(DriveTrain m_driveTrain2, Object leftOutput, Object rightOuObject) {
+
 }
 
 
@@ -64,9 +67,15 @@ public ArcadeDrive(DriveTrain m_driveTrain2, Object object, Object object2) {
  public void arcadeDrive(double throttleValue, double turnValue) {
   double leftOutput;
   double rightOutput;
+  
+  throttleValue = -RobotContainer.driverController_1.getY();
+  turnValue = RobotContainer.driverController_2.getX();
+
   leftOutput = throttleValue + turnValue;
   rightOutput = throttleValue - turnValue;
   DriveTrain.tankDrive(leftOutput, rightOutput);
+
+ 
   }
 
   // Called once the command ends or is interrupted.
