@@ -19,6 +19,6 @@ public final class Constants {
     public static final int rightFrontMotorId = 23;
 
 
-    public static final int leftJoystickId = 0;
-    public static final int rightJoystickId =1;
+    public static final int leftJoystickId = 2;
+    public static final int rightJoystickId = 3;
 }
