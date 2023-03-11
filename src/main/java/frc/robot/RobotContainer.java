@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RunArmJoystick;
-import frc.robot.commands.SetTankDrive;
+import frc.robot.commands.SetArcadeDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElbowSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -36,8 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-    m_driveTrain.setDefaultCommand(new SetTankDrive(m_driveTrain, leftJoystick::getY, rightJoystick:: getY));
+    m_driveTrain.setDefaultCommand(new SetArcadeDrive(m_driveTrain, leftJoystick::getY, rightJoystick::getX));
     m_ElbowSubsystem.setDefaultCommand(new RunArmJoystick(m_ElbowSubsystem, xboxController::getLeftY));
   }
 
