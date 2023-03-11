@@ -42,6 +42,12 @@ motors[3].follow(motors[1]);
 
   }
 
+public void setArcadeDrive(double throttle, double turn) {
+  double leftOutput = throttle + turn;
+  double rightOutput = throttle - turn;
+  setPercentOutput(leftOutput, rightOutput);
+}
+
 
 public void setPercentOutput(double leftOutput, double rightOutput) {
   motors[0].set(ControlMode.PercentOutput, leftOutput);
