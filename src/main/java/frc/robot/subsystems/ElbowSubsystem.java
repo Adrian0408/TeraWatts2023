@@ -35,7 +35,7 @@ public class ElbowSubsystem extends SubsystemBase {
   public static void start() {
   }
 
-public static void setPercentOutput(double y) {
+public void setPercentOutput(double y) {
   armMotor.set(y);
 }
 @Override
